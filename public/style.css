@@ -1,0 +1,80 @@
+/* Reseta as margens e o padding para todos os elementos */
+html, body {
+    height: 100%;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Estilo para o formulário principal */
+  #chat {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+  }
+  
+  /* Estilo para os campos de entrada (usuário e mensagem) */
+  input {
+    width: 600px;
+    border: 1px solid #ddd;
+    height: 50px;
+    padding: 0 20px;
+    font-size: 14px;
+    margin-top: 10px;
+    border-radius: 5px;
+  }
+  
+  /* Estilo para o botão de enviar */
+  button {
+    width: 600px;
+    height: 50px;
+    font-size: 14px;
+    background: #069;
+    text-align: center;
+    line-height: 50px;
+    font-weight: bold;
+    color: #FFF;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Estilo para a área de mensagens */
+  .messages {
+    width: 600px;
+    height: 400px;
+    margin: 20px 0;
+    border: 1px solid #ddd;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  
+  /* Estilos para os campos de idioma */
+  select, label {
+    width: 600px;
+    height: 50px;
+    margin-top: 10px;
+    font-size: 14px;
+    padding: 0 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    display: block;
+  }
+  
+  /* Adicionar um pequeno espaçamento entre o label e o select */
+  label {
+    font-weight: bold;
+    margin-top: 15px;
+  }
+  

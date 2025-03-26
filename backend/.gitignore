@@ -1,0 +1,16 @@
+# Ignora arquivos do sistema
+Thumbs.db
+Desktop.ini
+
+# Ignora pastas e arquivos temporários do editor
+.vscode/
+*.log
+node_modules/
+
+# Ignora arquivos específicos do usuário
+*.bak
+*.swp
+
+# Ignora diretórios de backup
+*~
+nano .gitignore
