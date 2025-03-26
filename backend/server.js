@@ -1,23 +1,23 @@
-// server.js
 const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
 
-//api do tradutoe
+// API do tradutor
 const translateApi = require('@vitalets/google-translate-api');
 
-const userText = "I'm doing very well and you?"
-const lang = "pt"
-
-
-// Cria o app Express
+// Criação do app Express
 const app = express();
 
-// Cria o servidor HTTP com o app Express
+// Criação do servidor HTTP
 const server = http.createServer(app);
 
-// Cria o servidor de WebSocket com o Socket.IO
-const io = socketIo(server);
+// Criação do servidor de WebSocket (Socket.io)
+const io = socketIo(server, {
+  cors: {
+    origin: "*",  // Permite qualquer origem (modifique em produção)
+    methods: ["GET", "POST"]
+  }
+});
 
 // Diretório público
 app.use(express.static('public'));
@@ -25,22 +25,20 @@ app.use(express.static('public'));
 let messages = [];
 
 const translateMessage = async (message, lang) => {
-
   try {
-    //const originMessage = message
-    const res = await translateApi(message, { to: lang});
+    const res = await translateApi(message, { to: lang });
     console.log("Idioma detectado:", res.from.language.iso);
     console.log("Tradução:", res.text);
     return res.text;
-  } catch {
+  } catch (err) {
     console.log("Erro na tradução:", err);
-    return message
-  }          
+    return message;  // Retorna a mensagem original se erro ocorrer
+  }
 };
 
 // Conectar ao socket e emitir/receber mensagens
 io.on('connection', (socket) => {
-    console.log(`Novo usuario conectado: ${socket.id}`);
+    console.log(`Novo usuário conectado: ${socket.id}`);
     
     // Enviar mensagens anteriores quando o cliente se conecta
     socket.emit('previousMessages', messages);
@@ -49,26 +47,24 @@ io.on('connection', (socket) => {
     socket.on('chat message', async (msg) => {
         const { username, messag, translate } = msg;
         
-        const translatedMessage = await translateMessage(messag, translate)
+        const translatedMessage = await translateMessage(messag, translate);
         
         // Adiciona a mensagem ao array de mensagens
         messages.push({ username, message: translatedMessage, originMessage: messag });
 
-        console.log(messages)
+        console.log(`Mensagem recebida de : ${socket.id}, ${username}: ${messag}`);
+        io.emit('chat message', { username, message: translatedMessage, originMessage: messag });
+    });
 
-    console.log(`Mensagem recebida de : ${socket.id}, ${username}: ${messag}`);
-
-    io.emit('chat message', { username, message : translatedMessage, originMessage: messag})
-
-  });
-
-  // Quando o usuário se desconectar
-  socket.on('disconnect', () => {
-    console.log('Usuário desconectado');
-  });
+    // Quando o usuário se desconectar
+    socket.on('disconnect', () => {
+      console.log('Usuário desconectado');
+    });
 });
 
 // Porta em que o servidor vai rodar
-server.listen(4000, () => {
-  console.log('Servidor rodando em http://localhost:4000');
+const port = process.env.PORT || 4000; // Usa a variável PORT ou 4000 como fallback
+
+server.listen(port, () => {
+  console.log(`Servidor rodando em http://localhost:${port}`);
 });
