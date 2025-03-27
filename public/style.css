@@ -1,80 +1,118 @@
 /* Reseta as margens e o padding para todos os elementos */
 html, body {
-    height: 100%;
+  height: 100%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilo para o formulário principal */
+#chat {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+}
+
+/* Estilo para os campos de entrada (usuário e mensagem) */
+input {
+  width: 100%;
+  max-width: 600px;
+  border: 1px solid #ddd;
+  height: 50px;
+  padding: 0 20px;
+  font-size: 14px;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+/* Estilo para o botão de enviar */
+button {
+  width: 100%;
+  max-width: 600px;
+  height: 50px;
+  font-size: 14px;
+  background: #069;
+  text-align: center;
+  line-height: 50px;
+  font-weight: bold;
+  color: #FFF;
+  margin-top: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Estilo para a área de mensagens */
+.messages {
+  width: 100%;
+  max-width: 600px;
+  height: 400px;
+  margin: 20px 0;
+  border: 1px solid #ddd;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Estilos para os campos de idioma */
+select, label {
+  width: 100%;
+  max-width: 600px;
+  height: 50px;
+  margin-top: 10px;
+  font-size: 14px;
+  padding: 0 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  display: block;
+}
+
+/* Adicionar um pequeno espaçamento entre o label e o select */
+label {
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+/* Media Query para telas pequenas */
+@media (max-width: 768px) {
+  /* Ajustes para telas pequenas (tablet e celular) */
+  input, button, .messages, select, label {
+    width: 90%; /* Deixa os elementos com largura de 90% da tela */
+    max-width: 100%; /* Garante que a largura máxima seja 100% */
   }
   
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  /* Estilo para o formulário principal */
-  #chat {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 20px;
-  }
-  
-  /* Estilo para os campos de entrada (usuário e mensagem) */
-  input {
-    width: 600px;
-    border: 1px solid #ddd;
-    height: 50px;
-    padding: 0 20px;
-    font-size: 14px;
-    margin-top: 10px;
-    border-radius: 5px;
-  }
-  
-  /* Estilo para o botão de enviar */
-  button {
-    width: 600px;
-    height: 50px;
-    font-size: 14px;
-    background: #069;
-    text-align: center;
-    line-height: 50px;
-    font-weight: bold;
-    color: #FFF;
-    margin-top: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  /* Estilo para a área de mensagens */
   .messages {
-    width: 600px;
-    height: 400px;
-    margin: 20px 0;
-    border: 1px solid #ddd;
-    padding: 20px;
-    overflow-y: auto;
-    background-color: #f9f9f9;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
+    height: 300px; /* Reduz a altura da área de mensagens em telas menores */
   }
   
-  
-  /* Estilos para os campos de idioma */
-  select, label {
-    width: 600px;
-    height: 50px;
-    margin-top: 10px;
-    font-size: 14px;
-    padding: 0 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    display: block;
+  button {
+    font-size: 16px; /* Aumenta o tamanho da fonte do botão em telas menores */
+  }
+}
+
+@media (max-width: 480px) {
+  /* Ajustes para telas de celulares muito pequenas */
+  input, button, .messages, select, label {
+    width: 95%; /* Usa 95% da largura da tela em telas menores */
   }
   
-  /* Adicionar um pequeno espaçamento entre o label e o select */
-  label {
-    font-weight: bold;
-    margin-top: 15px;
+  .messages {
+    height: 250px; /* Ajusta a altura da área de mensagens para dispositivos muito pequenos */
   }
   
+  input, button, select {
+    font-size: 12px; /* Reduz o tamanho da fonte em telas muito pequenas */
+  }
+  
+  button {
+    height: 45px; /* Ajusta a altura do botão para telas menores */
+  }
+}
