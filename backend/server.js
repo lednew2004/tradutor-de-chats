@@ -4,11 +4,7 @@ const http = require('http');
 const socketIo = require('socket.io');
 
 //api do tradutoe
-const translateApi = require('@vitalets/google-translate-api');
-
-const userText = "I'm doing very well and you?"
-const lang = "pt"
-
+const translateApi = require('@vitalets/google-translate-api')
 
 // Cria o app Express
 const app = express();
@@ -16,13 +12,8 @@ const app = express();
 // Cria o servidor HTTP com o app Express
 const server = http.createServer(app);
 
-const io = socketIo(server, {
-  cors: {
-    origin: "*", // Permite qualquer origem (em produção, substitua por um domínio específico)
-    methods: ["GET", "POST"]
-  }
-});
-
+// Cria o servidor de WebSocket com o Socket.IO
+const io = socketIo(server);
 
 // Diretório público
 app.use(express.static('public'));
@@ -37,10 +28,11 @@ const translateMessage = async (message, lang) => {
     console.log("Idioma detectado:", res.from.language.iso);
     console.log("Tradução:", res.text);
     return res.text;
-  } catch {
+  } catch (err) {
     console.log("Erro na tradução:", err);
-    return message
-  }          
+    return message;
+  }
+      
 };
 
 // Conectar ao socket e emitir/receber mensagens
